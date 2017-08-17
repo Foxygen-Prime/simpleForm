@@ -10,6 +10,11 @@ app.set('view engine', 'mustache')
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
+app.use(function (req, res, next) {
+  console.log('in interceptor');
+  next()
+})
+
 app.get('/', function (req, res){
   res.render('login')
 })
