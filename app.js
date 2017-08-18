@@ -6,8 +6,7 @@ const session = require('express-session');
 const app = express();
 
 
-app.use(bodyParser.urlencoded({
-  extended: false
+app.use(bodyParser.urlencoded({extended: false
 }));
 
 
@@ -33,7 +32,6 @@ const username_password = [{
   }
 ]
 
-
 app.use(session({
   secret: 'keyboard cat',
   resave: false,
@@ -42,24 +40,23 @@ app.use(session({
 
 app.use(function(req, res, next) {
   if (req.url == '/login') {
-    next()
+    next();
   } else if (!req.session.username) {
     res.render('login')
   } else {
-    next()
+    next();
   }
 })
 
 app.get('/', function(req, res) {
-  console.log('in home');
   res.render('home')
 })
 
 app.post('/login', function(req, res) {
   console.log("username is " + req.body.username);
   console.log("password is " + req.body.password);
-  username_password.forEach(function() {
-    if (req.body.username === username_password.name && req.body.password === username_password.password) {
+  username_password.forEach(function(user) {
+    if (req.body.username === user.name && req.body.password === user.password) {
       req.session.username = true;
       res.render('home');
     } else {
