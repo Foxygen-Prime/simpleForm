@@ -34,7 +34,6 @@ const username_password = [{
 ]
 
 
-
 app.use(session({
   secret: 'keyboard cat',
   resave: false,
@@ -44,7 +43,7 @@ app.use(session({
 app.use(function(req, res, next) {
   if (req.url == '/login') {
     next()
-  } else if (!req.sessions.username) {
+  } else if (!req.session.username) {
     res.render('login')
   } else {
     next()
@@ -59,7 +58,7 @@ app.get('/', function(req, res) {
 app.post('/login', function(req, res) {
   console.log("username is " + req.body.username);
   console.log("password is " + req.body.password);
-  username_password.foreach(function(username_password) {
+  username_password.forEach(function() {
     if (req.body.username === username_password.name && req.body.password === username_password.password) {
       req.session.username = true;
       res.render('home');
