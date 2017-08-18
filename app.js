@@ -6,7 +6,8 @@ const session = require('express-session');
 const app = express();
 
 
-app.use(bodyParser.urlencoded({extended: false
+app.use(bodyParser.urlencoded({
+  extended: false
 }));
 
 
@@ -55,15 +56,21 @@ app.get('/', function(req, res) {
 app.post('/login', function(req, res) {
   console.log("username is " + req.body.username);
   console.log("password is " + req.body.password);
-  username_password.forEach(function(user) {
-    if (req.body.username === user.name && req.body.password === user.password) {
+  for (let i = 0; i < username_password.length; i++) {
+    if (req.body.username === username_password[i].name && req.body.password === username_password[i].password) {
       req.session.username = true;
+    }
+    if (req.session.username = true) {
       res.render('home');
     } else {
-      res.render('login', {error: true});
+      res.render('login', {
+        error: true
+      });
     }
-  })
+  }
 })
+
+
 
 app.listen(3000, function() {
   console.log('Successfully started the express application!');
