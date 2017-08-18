@@ -57,19 +57,17 @@ app.post('/login', function(req, res) {
   console.log("username is " + req.body.username);
   console.log("password is " + req.body.password);
   for (let i = 0; i < username_password.length; i++) {
-    if (req.body.username === username_password[i].name && req.body.password === username_password[i].password) {
+    if (req.body.username === username_password[i].user && req.body.password === username_password[i].password) {
       req.session.username = true;
     }
-    if (req.session.username = true) {
-      res.render('home');
-    } else {
-      res.render('login', {
-        error: true
-      });
     }
-  }
+  if (req.session.username === true) {
+    res.render('home');
+  } else {
+    res.render('login', {
+      error: true});
+}
 })
-
 
 
 app.listen(3000, function() {
